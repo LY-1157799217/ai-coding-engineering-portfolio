@@ -462,8 +462,8 @@
                 </tr>
                 <tr>
                     <td><strong>人（主导）</strong></td>
-                    <td>需求拆解、任务路由、冲突裁决、真机验收</td>
-                    <td>定义"什么是对的"、最终验收</td>
+                    <td>架构设计（端-边-云布局）、需求拆解、任务路由、冲突裁决、真机验收</td>
+                    <td>定义"什么是对的"、系统边界、最终验收</td>
                 </tr>
                 <tr>
                     <td><strong>Claude Code</strong></td>
@@ -481,7 +481,7 @@
                     <td>文档整理、数据提取</td>
                 </tr>
                 <tr>
-                    <td><strong>GPT-4</strong></td>
+                    <td><strong>Codex (GPT)</strong></td>
                     <td>独立外部复核</td>
                     <td>发布前审查、缺陷发现</td>
                 </tr>
@@ -531,12 +531,12 @@
                 </tr>
                 <tr>
                     <td>主力开发</td>
-                    <td>Claude Opus / Sonnet</td>
+                    <td>Claude (Fable / Opus)</td>
                     <td>长上下文、代码能力强</td>
                 </tr>
                 <tr>
                     <td>外部复核</td>
-                    <td>GPT-4o</td>
+                    <td>Codex (GPT)</td>
                     <td>独立视角、挑错能力</td>
                 </tr>
                 <tr>
@@ -546,7 +546,7 @@
                 </tr>
                 <tr>
                     <td>需求理解</td>
-                    <td>GPT-4 (OpenClaw)</td>
+                    <td>OpenClaw (GPT)</td>
                     <td>企微自然语言解析</td>
                 </tr>
             </table>
@@ -554,8 +554,8 @@
             <h3>成本优化策略</h3>
             <ul style="margin-left: 30px;">
                 <li><strong>复用上下文</strong>：同一问题域的连续任务在同一会话</li>
-                <li><strong>分级处理</strong>：简单任务用 Haiku，复杂推理用 Opus</li>
-                <li><strong>外部复核按需</strong>：发布前才调用 GPT-4o，不是每次改动</li>
+                <li><strong>分级处理</strong>：简单任务用轻量模型，复杂推理用顶级模型</li>
+                <li><strong>外部复核按需</strong>：发布前才调用独立模型，不是每次改动</li>
                 <li><strong>避免重复工作</strong>：Git 锚点 + 增量修复，不推倒重来</li>
             </ul>
         </section>

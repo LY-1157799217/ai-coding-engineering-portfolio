@@ -1,0 +1,11 @@
+# 大文件（超过 GitHub 100MB 限制）
+assets/videos/*.mp4
+
+# Python
+__pycache__/
+*.pyc
+
+# 临时文件
+*.tmp
+*.log
+.DS_Store

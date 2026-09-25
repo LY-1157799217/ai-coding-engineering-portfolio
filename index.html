@@ -602,9 +602,26 @@
         <!-- 演示视频 -->
         <section id="demo">
             <h2>演示视频</h2>
-            <div class="video-placeholder">
-                <p style="font-size: 1.2em; color: #666;">📹 演示视频制作中</p>
-                <p style="margin-top: 10px; font-size: 0.9em;">60-90 秒快速演示：企微控制 → 设备响应 → 熔断自愈</p>
+            <div style="margin: 20px 0;">
+                <p style="margin-bottom: 15px; color: #666;">
+                    <strong>完整演示（2 分 49 秒）</strong>：树莓派 Hub 重启 → 4 服务自启 → ESP32 熔断器自动探测恢复
+                </p>
+                <video controls style="width: 100%; max-width: 1000px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    <source src="assets/videos/show.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 6px;">
+                    <p style="font-size: 0.95em; color: #666; line-height: 1.6;">
+                        <strong>画中画说明</strong>：
+                    </p>
+                    <ul style="margin: 10px 0 0 20px; font-size: 0.95em; color: #666; line-height: 1.8;">
+                        <li><strong>主视频（电脑录屏）</strong>：串口日志实时变化，可清晰看到 Pi Hub 启动过程、服务就绪时间、ESP32 探测恢复节拍</li>
+                        <li><strong>副视频（手机实拍）</strong>：ESP32 屏幕实际显示变化，从"Pi 离线"到"Hub 恢复在线"的真实设备响应</li>
+                    </ul>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #999;">
+                        ⏱️ 树莓派重启本身约需 1 分钟（系统启动 + 4 服务初始化），演示展示了完整的自愈过程，未剪辑加速
+                    </p>
+                </div>
             </div>
         </section>
 

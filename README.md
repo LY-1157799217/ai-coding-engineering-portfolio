@@ -38,14 +38,14 @@ ai-coding-engineering-portfolio/
 
 ## 📊 核心数据摘要
 
-### ESP32 项目
+### ESP32（含无Pi版、Pi Hub版）固件设计
 - 12 小时零重启运行（731 心跳 / 0 崩溃）
 - 熔断器自动恢复 12/12 次（2.8h 真实环境）→ [📹 查看完整演示视频](https://www.bilibili.com/video/BV1UDh169E3s)
 - 堆内存零泄漏（+2,632 B 净增长）
 - 首页加载优化 55%（5.2s → 2.33s）
 - 并发请求 42/42 成功（修复前第 2 发即 RST）
 
-### 树莓派 Hub 项目
+### 树莓派 Hub 设计
 - 4 服务 26 秒开机就绪
 - 端-边-云三层失效边界设计
 - 60s 幂等缓存 + 45s 结果未知语义
@@ -55,7 +55,7 @@ ai-coding-engineering-portfolio/
 ## 🛠️ 技术栈
 
 **嵌入式**：ESP32-C3 (Arduino)、ST7789 TFT、AsyncTCP、SPIFFS  
-**边缘计算**：树莓派 4B、Python 3、Flask、MQTT、systemd  
+**边缘计算**：树莓派 5、Python 3、Flask、MQTT、systemd  
 **AI 协同**：Claude Code、OpenClaw、Codex (GPT)  
 **工具链**：Git、多模型协同、外部复核、测量驱动决策
 

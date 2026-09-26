@@ -93,6 +93,6 @@
 ---
 
 **数据来源**：
-- ESP32 项目：`Desktop\stock-tv\PERFORMANCE.md`（5,049 行量化台账）
-- Pi Hub 项目：`Desktop\mqtt-edge-hub\` 四服务实测 + 企微控制链路验证
-- 人机协同：`Desktop\stock-tv\人机协同复盘与留痕.md` §5 失败模式分类
+- ESP32 项目：本地量化台账 `PERFORMANCE.md`（5,049 行）
+- Pi Hub 项目：四服务开机就绪实测 + 企微控制链路真机验证
+- 人机协同：本地复盘留痕文档 §5 失败模式分类（E1–E9）

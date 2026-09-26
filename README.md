@@ -14,7 +14,7 @@
 
 ## 📂 仓库内容
 
-本仓库作为简历的**证据链补充**，展示 AI Coding / AI Agent 应用开发中的实际工程实践成果。
+本仓库整理两个项目的工程指标、调试案例与 AI 协同方法，展示 AI Coding / AI Agent 应用开发中的实际工程实践成果。
 
 ### 目录结构
 
@@ -30,6 +30,17 @@ ai-coding-engineering-portfolio/
 │   └── external-audit-log.md           # 外部复核 6 轮记录
 └── README.md                           # 本文件
 ```
+
+### 文档导航
+
+| 文档 | 内容 |
+|------|------|
+| [两个项目的工程指标](data/projects-metrics.md) | ESP32 固件 / 树莓派 Hub 的量化指标与指标定义 |
+| [案例 1：TCP 熔断器](data/case-01-circuit-breaker.md) | 单向闩锁 → 三态熔断器；人工设计的三段反证测试；12/12 次自愈 |
+| [案例 2：堆碎片化 + Git 锚点](data/case-02-heap-fragmentation.md) | 坏基线上三次优化零效果 → 回锚点后逐一击破；4 条预注册判据 |
+| [案例 3：上传非原子性](data/case-03-upload-atomicity.md) | 中断即毁旧数据 → 三阶段替换 + 开机恢复；能力边界与实测方法 |
+| [人在环多 Agent 协同流程](data/multi-agent-workflow.md) | 角色分工、人机边界、AI 失误与提炼出的判据 |
+| [外部复核 6 轮记录](data/external-audit-log.md) | 18→9→7→4→4→2，累计 44 条缺陷、零误报，含自查清单 9 条 |
 
 ## 🔗 相关项目
 
@@ -56,8 +67,9 @@ ai-coding-engineering-portfolio/
 
 **嵌入式**：ESP32-C3 (Arduino)、ST7789 TFT、AsyncTCP、SPIFFS  
 **边缘计算**：树莓派 5、Python 3、Flask、MQTT、systemd  
-**AI 协同**：Claude Code、OpenClaw、Codex (GPT)  
-**工具链**：Git、多模型协同、外部复核、测量驱动决策
+**多 Agent 协同**：Claude Code(主力)、OpenClaw、WorkBuddy、Codex (GPT)  
+**人机协同机制**：人机分工边界、预注册判据、外部复核、失败模式归档  
+**工具链**：Git(锚点管理)、串口/HTTP 双通道取证
 
 ---
 

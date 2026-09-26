@@ -184,6 +184,35 @@
             background: #653a8e;
         }
 
+        .case-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 9px 20px;
+            background: white;
+            color: #667eea;
+            border: 1px solid #667eea;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92em;
+            transition: all 0.3s;
+        }
+
+        .case-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .case-link.secondary {
+            color: #764ba2;
+            border-color: #764ba2;
+        }
+
+        .case-link.secondary:hover {
+            background: #764ba2;
+            color: white;
+        }
+
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -339,6 +368,10 @@
                     📦 树莓派 MQTT 智能中控（GitHub）
                 </a>
             </div>
+
+            <a href="https://github.com/LY-1157799217/ai-coding-engineering-portfolio/blob/main/data/projects-metrics.md" class="case-link secondary" target="_blank">
+                📄 两个项目的工程指标明细（含指标定义与数据来源）
+            </a>
         </section>
 
         <!-- 3 个典型调试案例 -->
@@ -377,6 +410,9 @@
                         </table>
                     </div>
                     <p><strong>关键洞察</strong>：熔断器必须是三态的（OPEN / CLOSED / HALF-OPEN），清除语句不能被开关本身守卫。</p>
+                    <a href="https://github.com/LY-1157799217/ai-coding-engineering-portfolio/blob/main/data/case-01-circuit-breaker.md" class="case-link" target="_blank">
+                        📄 案例 1 完整记录（含人工设计的三段反证测试、判据与 2.8h 实测数据）
+                    </a>
                 </div>
 
                 <!-- 案例 2 -->
@@ -389,7 +425,7 @@
                         <ul style="margin: 10px 0;">
                             <li>每次测量的差异里混着"这次的改动"和"原本就存在的其他病"</li>
                             <li>无法判断"是这个改动的功劳，还是原来就这样"</li>
-                            <li>我的失误：怕丢工作，只关闭功能开关 → <strong>半回退 = 最坏状态</strong></li>
+                            <li>AI 的失误：怕丢工作，只关闭功能开关 → <strong>半回退 = 最坏状态</strong></li>
                         </ul>
                     </div>
                     <p><strong>转折</strong>：用户坚持真回退到 Git 锚点（<code>git archive</code> 到临时目录编译烧录）。</p>
@@ -419,15 +455,18 @@
                         </table>
                     </div>
                     <p><strong>关键洞察</strong>：指标必须匹配用户可感的量（尾部延迟 vs 平均值）。锚点成本 = 一个 <code>git tag</code>；不建锚点成本 = 整轮调试走弯路。</p>
+                    <a href="https://github.com/LY-1157799217/ai-coding-engineering-portfolio/blob/main/data/case-02-heap-fragmentation.md" class="case-link" target="_blank">
+                        📄 案例 2 完整记录（含 4 条预注册判据、75 倍尖峰与锚点对比）
+                    </a>
                 </div>
 
                 <!-- 案例 3 -->
                 <div class="case-item">
-                    <h4>案例 3：上传非原子性 — 断电毁数据与备份恢复机制</h4>
-                    <p><strong>问题</strong>：网页上传壁纸时若断电或断网，原图片被损坏，无法恢复。</p>
-                    <p><strong>根因</strong>：<code>UPLOAD_FILE_START</code> 就直接打开目标文件写入 → 立即覆盖旧数据。中途断电 → 既不是新文件也不是旧文件。</p>
+                    <h4>案例 3：上传非原子性 — 中断即毁旧数据，重构为可恢复的三阶段替换</h4>
+                    <p><strong>问题</strong>：网页上传壁纸/相册图片时，只要上传被打断（关页面 / 断网 / 掉电），设备上<strong>原有的图片就已经被毁掉</strong>，无法恢复。</p>
+                    <p><strong>根因</strong>：<code>UPLOAD_FILE_START</code> 就直接打开目标文件写入 → 旧数据的清除发生在<strong>上传刚开始那一刻</strong>，而不是上传成功之后。</p>
                     <div class="highlight-box">
-                        <strong>真机 A/B 实证</strong>
+                        <strong>真机 A/B 实证（同一脚本、同一靶子、同一种中断，唯一变量是固件）</strong>
                         <ul style="margin: 10px 0;">
                             <li><strong>A 组（修复前）</strong>：上传中断后 <code>sha256: 2914fa25... → 025d5f3e...</code> <span style="color: #d32f2f;">← 文件被毁</span></li>
                             <li><strong>B 组（修复后）</strong>：上传中断后 <code>sha256: 2914fa25... → 2914fa25...</code> <span style="color: #388e3c;">← 完全未变</span></li>
@@ -435,11 +474,14 @@
                     </div>
                     <p><strong>修复策略</strong>：三阶段原子替换</p>
                     <ol style="margin-left: 30px;">
-                        <li>写入临时文件 + 校验 sha256</li>
-                        <li>原子替换：<code>目标→.bak ⇒ tmp→目标 ⇒ 删.bak</code></li>
-                        <li>开机自动恢复：检测 <code>.bak</code> 存在 → 目标损坏 → 从备份恢复</li>
+                        <li>收数据<strong>全程只写临时文件</strong> <code>/upload.tmp</code>（收完比对落盘字节数）</li>
+                        <li>替换：<code>目标→.bak ⇒ tmp→目标 ⇒ 删.bak</code>（改名失败即把 <code>.bak</code> 改回原名）</li>
+                        <li>开机认领 <code>.bak</code>：目标还在 → 清掉多余备份；目标缺失 → 把 <code>.bak</code> 改回原名</li>
                     </ol>
-                    <p><strong>关键洞察</strong>：错误方案"失败就先删目标"会产生不可恢复窗口。备份文件（<code>.bak</code>）绝不能进开机自动删除名单。</p>
+                    <p><strong>关键洞察</strong>：错误方案"失败就先删目标"会产生不可恢复窗口；备份 <code>.bak</code> 绝不能进开机自动删除名单；且这是"<strong>尽力恢复</strong>"，不是"保证恢复"。中断方式为客户端断开 —— <span style="color: #666;">掉电本身未复现，复现的是它留下的状态</span>。</p>
+                    <a href="https://github.com/LY-1157799217/ai-coding-engineering-portfolio/blob/main/data/case-03-upload-atomicity.md" class="case-link" target="_blank">
+                        📄 案例 3 完整记录（含判据、能力边界与恢复分支实测方法）
+                    </a>
                 </div>
             </div>
 
@@ -516,6 +558,10 @@
                     <li>架构方向可假设，落地必须实测；小样本结论只能当假设</li>
                 </ul>
             </div>
+
+            <a href="https://github.com/LY-1157799217/ai-coding-engineering-portfolio/blob/main/data/multi-agent-workflow.md" class="case-link" target="_blank">
+                📄 协同工作流完整记录（含角色分工、人机边界、AI 失误与提炼出的判据）
+            </a>
         </section>
 
         <!-- 模型分级与成本治理 -->
@@ -587,7 +633,7 @@
             <ul style="margin-left: 30px;">
                 <li><strong>PERFORMANCE.md</strong>（5,049 行）：量化台账，包含防乌龙铁律、静态/运行时指标、优化动作前后对照</li>
                 <li><strong>人机协同复盘与留痕.md</strong>：9 类失败模式分类（E1-E9）、工具调用契约、错误恢复机制</li>
-                <li><strong>外部复核记录</strong>：6 轮 44 条缺陷逐条核实，包含自查清单 9 条</li>
+                <li><strong>外部复核记录</strong>：6 轮 44 条缺陷逐条核实，包含自查清单 9 条 → <a href="https://github.com/LY-1157799217/ai-coding-engineering-portfolio/blob/main/data/external-audit-log.md" target="_blank" style="color: #667eea; font-weight: 600;">公开版</a></li>
                 <li><strong>调试日志样本</strong>：12 小时长跑日志、熔断器跳闸时间线、堆内存趋势记录</li>
             </ul>
 

@@ -2,6 +2,10 @@
 
 > 会写固件的 Agent 工程师 · 能碰硬件的 Vibe Coder
 
+> 主仓库 [GitHub](https://github.com/LY-1157799217/ai-coding-engineering-portfolio)
+> 国内镜像访问：[Gitee](https://gitee.com/LY115LY/ai-coding-engineering-portfolio)
+> 两个仓库保持同步更新，国内访问建议使用 Gitee 镜像。
+
 ## 📖 在线查看
 
 **🌐 [GitHub Pages 在线展示](https://ly-1157799217.github.io/ai-coding-engineering-portfolio/)**（推荐）
